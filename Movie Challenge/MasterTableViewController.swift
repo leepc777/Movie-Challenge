@@ -52,7 +52,7 @@ class MasterTableViewController : UIViewController {
         searchBar.isUserInteractionEnabled = false
         
         let query = SearchMoviesQuery(genre: genre, limit: 0)
-        Network.shared.apollo.fetch(query: query) { result in
+        Network.shared.apollo.fetch(query: query) {  result in
             switch result {
             case .success(let graphQLResult):
                 print("Found \(graphQLResult.data?.movies?.count ?? 0) movies")
