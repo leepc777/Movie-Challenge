@@ -16,8 +16,8 @@ class MasterTableViewController : UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var aSpinner: UIActivityIndicatorView!
     
+    let spinner = UIActivityIndicatorView(style: .large)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +40,15 @@ class MasterTableViewController : UIViewController {
         searchBar.delegate = self
         searchBar.autocapitalizationType = .none
         searchBar.placeholder = "Search Movie Title"
+        
+        spinner.center = view.center
+        spinner.color = .orange
+        view.addSubview(spinner)
     }
     
     func fetchData(genre:String = "") {
         
-        aSpinner.startAnimating()
+        spinner.startAnimating()
         searchBar.isUserInteractionEnabled = false
         
         let query = SearchMoviesQuery(genre: genre, limit: 0)
@@ -60,7 +64,7 @@ class MasterTableViewController : UIViewController {
                     self.topFivePopularMovies = Array(movies[0..<max])
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
-                        self.aSpinner.stopAnimating()
+                        self.spinner.stopAnimating()
                         self.searchBar.isUserInteractionEnabled = true
                     }
                 }
